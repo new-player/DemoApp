@@ -1,3 +1,4 @@
+@echo
 # This file must be used with "source bin/activate" *from bash*
 # you cannot run it directly
 
@@ -39,7 +40,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="$(if [ "$OSTYPE" "==" "cygwin" ]; then cygpath -u 'C:\Users\sijhanwa\demoproject\DemoApp\env'; else echo '/C/Users/sijhanwa/demoproject/DemoApp/env'; fi;)"
+VIRTUAL_ENV="$(if [ "$OSTYPE" "==" "cygwin" ]; then cygpath -u 'D:\aa\git-projects\DemoApp\env'; else echo '/D/aa/git-projects/DemoApp/env'; fi;)"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

@@ -1,5 +1,5 @@
 @echo off
-set "VIRTUAL_ENV=C:\Users\sijhanwa\demoproject\DemoApp\env"
+set "VIRTUAL_ENV=D:\aa\git-projects\DemoApp\env"
 
 if defined _OLD_VIRTUAL_PROMPT (
     set "PROMPT=%_OLD_VIRTUAL_PROMPT%"
