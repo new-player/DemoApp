@@ -3,3 +3,4 @@ mysql-python==1.2.5
 djangorestframework
 markdown
 django-filter
+django_compressor

@@ -1,0 +1,25 @@
+{
+  "name": "demoproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/new-player/DemoApp"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/new-player/DemoApp/issues"
+  },
+  "homepage": "https://github.com/new-player/DemoApp",
+  "dependencies": {
+  	"bower": "latest",
+  	"gulp": "^3.8.9",
+    "gulp-ng-annotate": "^0.3.3",
+    "gulp-uglify": "^1.0.1"
+  	}
+}
