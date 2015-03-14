@@ -40,7 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'rest_framework',
     'compressor',
-    'demoapp'
+    'Authentication'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -106,4 +106,4 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'template'),
     )
 
-AUTH_USER_MODEL = 'demoapp.Account'
+AUTH_USER_MODEL = 'Authentication.Account'

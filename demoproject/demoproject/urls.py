@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from rest_framework import routers
 
-from demoapp.views import AccountViewSet
+from Authentication.views import AccountViewSet
 from demoproject.views import IndexView
 
 router = routers.SimpleRouter()
