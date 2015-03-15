@@ -1,10 +1,14 @@
+import json
+
 from django.contrib.admin.utils import lookup_field
 
 from Authentication.models import Account
 from Authentication.serializers import AccountSerializer
 from Authentication.permissions import IsAccountOwner
-from rest_framework import permissions, status, viewsets
+from rest_framework import permissions, status, viewsets, views
 from rest_framework.response import Response
+from email import email
+from django.contrib.auth import authenticate, login
 
 class AccountViewSet(viewsets.ModelViewSet):
     lookup_field = 'username'
@@ -22,7 +26,6 @@ class AccountViewSet(viewsets.ModelViewSet):
     
     def create(self, request):
         serializer = self.serializer_class(data=request.data)
-        print serializer
         
         if serializer.is_valid():
             Account.objects.create_user(**serializer.validated_data)
@@ -33,3 +36,28 @@ class AccountViewSet(viewsets.ModelViewSet):
                          'message' : 'Account could not be created with received data.'},
                         status=status.HTTP_400_BAD_REQUEST)
         
+class LoginView(views.APIView):
+    def post(self, request, format=None):
+        data = json.loads(request.body)
+        
+        email = data.get('email', None)
+        password = data.get('password', None)
+        
+        account = authenticate(email=email, password=password)
+        
+        if account is not None:
+            if account.is_active:
+                login(request, account)
+                
+                serialized = AccountSerializer(account)
+                return Response(serialized.data)
+            else:
+                return Response({
+                        'status': 'Unauthorized',
+                        'message': 'Account Diabled.'
+                },status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            return Response({
+                        'status': 'Unauthorized',
+                        'message': 'Username/password combination invalid.'
+            },status=status.HTTP_401_UNAUTHORIZED)

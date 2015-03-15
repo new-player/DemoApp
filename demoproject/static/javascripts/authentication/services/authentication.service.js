@@ -9,8 +9,13 @@
 	
 	function Authentication($cookies, $http) {
 		var Authentication = {
-				register: register
-		};
+				register: register,
+				login: login,
+				getAuthenticatedAccount: getAuthenticatedAccount,
+				isAuthenticated: isAuthenticated,
+				setAuthenticatedAccount: setAuthenticatedAccount,
+				unauthenticate: unauthenticate
+				};
 		return Authentication;
 		
 		function register(email, password, username) {
@@ -18,7 +23,48 @@
 				username: username,
 				password: password,
 				email: email
-			});
+			}).then(registerSuccessFn, registerErrorFn);
 		}
+		
+		function login(email, password) {
+			return $http.post('/api/v1/auth/login/', {
+				email: email,
+				password: password
+			}).then(loginSuccessFn, loginErrorFn);
+		}
+		
+		function registerSuccessFn(data, status, headers, config) {
+			Authentication.login(email, password);
+		}
+		
+		function registerErrorFn(data, status, headers, config) {
+			console.error('Epic failure');
+		}
+		
+		function loginSuccessFn(data, status, headers, config) {
+			Authentication.setAuthenticatedAccount(data.data);
+			window.location = '/';
+		}
+		
+		function getAuthenticatedAccount() {
+			if(!cookies.authenticatedAccount) {
+				return;
+			}
+			return JSON.parse($cookies.authenticatedAccount);
+		}
+		
+		function isAuthenticated() {
+			return !!$cookies.authenticatedAccount;
+		}
+		
+		function setAuthenticatedAccount(account) {
+			$cookies.authenticatedAccount = JSON.stringify(account);
+		}
+		
+		function unauthenticate() {
+			delete $cookies.authenticatedAccount;
+		}
+		
 	}
+	
 })();
