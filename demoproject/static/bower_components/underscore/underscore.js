@@ -127,7 +127,7 @@
   // Related: http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength
   var MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;
   var isArrayLike = function(collection) {
-    var length = collection != null && collection.length;
+    var length = collection && collection.length;
     return typeof length == 'number' && length >= 0 && length <= MAX_ARRAY_INDEX;
   };
 
@@ -252,12 +252,11 @@
     return false;
   };
 
-  // Determine if the array or object contains a given item (using `===`).
+  // Determine if the array or object contains a given value (using `===`).
   // Aliased as `includes` and `include`.
-  _.contains = _.includes = _.include = function(obj, item, fromIndex, guard) {
+  _.contains = _.includes = _.include = function(obj, target, fromIndex) {
     if (!isArrayLike(obj)) obj = _.values(obj);
-    if (typeof fromIndex != 'number' || guard) fromIndex = 0;
-    return _.indexOf(obj, item, fromIndex) >= 0;
+    return _.indexOf(obj, target, typeof fromIndex == 'number' && fromIndex) >= 0;
   };
 
   // Invoke a method (with arguments) on every item in a collection.
@@ -617,8 +616,7 @@
       return array[i] === item ? i : -1;
     }
     if (item !== item) {
-      var index = _.findIndex(slice.call(array, i), _.isNaN);
-      return index >= 0 ? index + i : -1;
+      return _.findIndex(slice.call(array, i), _.isNaN);
     }
     for (; i < length; i++) if (array[i] === item) return i;
     return -1;
@@ -671,7 +669,7 @@
   // the native Python `range()` function. See
   // [the Python documentation](http://docs.python.org/library/functions.html#range).
   _.range = function(start, stop, step) {
-    if (stop == null) {
+    if (arguments.length <= 1) {
       stop = start || 0;
       start = 0;
     }
@@ -1049,15 +1047,6 @@
 
   // Fill in a given object with default properties.
   _.defaults = createAssigner(_.allKeys, true);
-
-  // Creates an object that inherits from the given prototype object.
-  // If additional properties are provided then they will be added to the
-  // created object.
-  _.create = function(prototype, props) {
-    var result = baseCreate(prototype);
-    if (props) _.extendOwn(result, props);
-    return result;
-  };
 
   // Create a (shallow-cloned) duplicate of an object.
   _.clone = function(obj) {

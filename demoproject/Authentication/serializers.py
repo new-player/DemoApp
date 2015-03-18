@@ -4,7 +4,7 @@ from django.contrib.auth import update_session_auth_hash
 
 class AccountSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=False)
-    confirm_parssword = serializers.CharField(write_only=True, required=False)
+    confirm_password = serializers.CharField(write_only=True, required=False)
     
     class Meta:
         model = Account

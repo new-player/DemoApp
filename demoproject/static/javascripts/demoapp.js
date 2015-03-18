@@ -5,7 +5,8 @@
 		.module('demoapp', [		                    
 		         'demoapp.routes',
 		         'demoapp.authentication',
-		         'demoapp.config']);
+		         'demoapp.config',
+		         'demoapp.layout']);
 	
 	angular
 		.module('demoapp.routes', ['ngRoute']);

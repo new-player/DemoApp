@@ -5,7 +5,6 @@
 		.config(config)
 		
 	config.$inject = ['$routeProvider'];
-	console.error('gdfhfd');
 	
 	function config($routeProvider) {
 		$routeProvider.when('/register', {

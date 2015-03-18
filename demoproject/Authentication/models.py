@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from email import email
 from MySQLdb.constants.FLAG import UNIQUE
 from virtualenv import REQUIRED_FILES
 
@@ -35,7 +34,7 @@ class Account(AbstractBaseUser):
     
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
-    tag_line = models.CharField(max_length=30, blank=True)
+    tagline = models.CharField(max_length=30, blank=True)
     
     is_admin = models.BooleanField(default=False)
     
